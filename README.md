@@ -18,7 +18,7 @@ Ensure that file is ignored to avoid committing your credentials to GitHub.
 
 #### Deploy with Grunt
 
-To deploy the the `default` branch on Screeps.com, run:
+To deploy to the `default` branch on Screeps.com, run:
 
 ```
 grunt screeps
