@@ -1,3 +1,5 @@
 /config/screeps-creds.json
 /node_modules
 .DS_Store
+.idea/
+Screeps.iml
