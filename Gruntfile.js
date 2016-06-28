@@ -3,11 +3,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-screeps');
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('config/screeps-creds.json'),
+        creds: grunt.file.readJSON('config/screeps-creds.json'),
         screeps: {
             options: {
-                email: '<%= pkg.email %>',
-                password: '<%= pkg.password %>',
+                email: '<%= creds.email %>',
+                password: '<%= creds.password %>',
                 branch: grunt.option('branch') || 'default',
                 ptr: false
             },
@@ -16,4 +16,4 @@ module.exports = function(grunt) {
             }
         }
     });
-}
+};

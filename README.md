@@ -29,3 +29,5 @@ Or, to deploy to a specific branch:
 ```
 grunt screeps --branch=mybranch
 ```
+
+Note: You must create the branch on Screeps first before you can deploy to it
