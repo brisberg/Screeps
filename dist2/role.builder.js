@@ -1,4 +1,4 @@
-var Role = require('role.baseRole');
+var Role = test;
 
 function Builder() {
     this.base = Role();
