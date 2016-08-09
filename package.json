@@ -3,16 +3,13 @@
   "version": "1.0.0",
   "description": "AI Code for Screeps MMO",
   "main": "gulpfile.js",
-  "privte": true,
-  "dependencies": {
-    "grunt": "^1.0.1",
-    "grunt-screeps": "^1.2.1"
-  },
+  "private": true,
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-screeps": "^1.0.2"
+    "gulp-screeps": "^1.0.2",
+    "minimist": "^1.2.0"
   },
   "scripts": {
     "test": "test"
