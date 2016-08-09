@@ -1,4 +1,4 @@
-/config/screeps-creds.json
+/config/screeps-creds.js
 /node_modules
 .DS_Store
 .idea/

@@ -1,22 +1,12 @@
-var gulp = require('gulp'),
-    screeps = require('gulp-screeps'),
-    replace = require('gulp-replace'),
-    gmatch = require('gulp-match'),
-    notify = require('gulp-notify'),
-    map = require('map-stream'),
-    credentials = require('./credentials.js');
+var gulp = require('gulp');
+var screeps = require('gulp-screeps');
+var rename = require('gulp-rename');
+var credentials = require('./config/screeps-creds.js');
 
-var condition = /require\('.*'\)/g;
-
-gulp.task('replace', function() {
-  gulp.src('./src/**/*.js')
-    .pipe(map(function (file, cb) {
-      var match = gmatch(file, condition, null);
-      if (match) {
-        gulp.notify(match);
-      }
-      cb(null, file);
+gulp.task('screeps', function() {
+  gulp.src('./src/**/*.js', { base: './src' })
+    .pipe(rename( function(path) {
+      path.basename = path.dirname.replace('/', '.') + '.' + path.basename;
     }))
-    .pipe(replace(re, 'test'))
-    .pipe(gulp.dest('./dist2'));
+    .pipe(screeps(credentials));
 });
