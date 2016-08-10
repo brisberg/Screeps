@@ -1,22 +1,24 @@
-var gulp = require('gulp');
-var screeps = require('gulp-screeps');
-var rename = require('gulp-rename');
-
-var credentials = require('./config/screeps-creds.js');
+var gulp     = require('gulp');
+var screeps  = require('gulp-screeps');
+var rename   = require('gulp-rename');
+var merge    = require('merge-stream');
 var minimist = require('minimist');
+
+var config = require('./config/screeps-config.js');
 
 var knownOptions = {
     string: 'branch',
     boolean: 'ptr',
-    default: credentials
+    default: config
 };
 
-credentials = minimist(process.argv.slice(2), knownOptions);
+config = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('screeps', function() {
-  gulp.src('./src/**/*.js', { base: './src' })
+  merge(gulp.src(config.project_path + '/**/*.js', { base: config.project_path }),
+        gulp.src('./common/**/*.js', { base: './common' }))
     .pipe(rename( function(path) {
       path.basename = path.dirname.replace('/', '.') + '.' + path.basename;
     }))
-    .pipe(screeps(credentials));
+    .pipe(screeps(config));
 });
