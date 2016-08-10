@@ -8,6 +8,11 @@ Install `gulp-cli` globally:
 npm install -g gulp-cli
 ```
 
+Then install dependencies:
+```
+npm install
+```
+
 #### Screep credentials
 
 Add a new file to your project: `config/screeps-creds.js`
@@ -17,13 +22,14 @@ module.exports = {
     email: '<Your Email>',
     password: '<You Password>',
     branch: 'default',
-    ptr: false
+    ptr: false,
+    project: 'src'
 };
 ```
-**Note:** `branch` and `ptr` specify default values and can be set to anything you like.
+**Note:** `branch`, `ptr`, and 'project' specify default values and can be set to anything you like.
 
-**Important:** Ensure that this file is ignored to avoid committing your credentials to GitHub by
-adding `/config/screeps-creds.js` to your `.gitignore` file.
+**Important:** Ensure that this file is ignored in the `.gitignore` file to avoid committing your
+credentials to GitHub.
 
 #### Deploy with Grunt
 

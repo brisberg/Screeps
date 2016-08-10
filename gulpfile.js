@@ -7,7 +7,7 @@ var minimist = require('minimist');
 var config = require('./config/screeps-config.js');
 
 var knownOptions = {
-    string: 'branch',
+    string: ['branch', 'project'],
     boolean: 'ptr',
     default: config
 };
@@ -15,10 +15,12 @@ var knownOptions = {
 config = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('screeps', function() {
-  merge(gulp.src(config.project_path + '/**/*.js', { base: config.project_path }),
-        gulp.src('./common/**/*.js', { base: './common' }))
+  merge(gulp.src('./' + config.project + '/**/*.js', { base: './' + config.project }),
+        gulp.src('./common/*.js', { base: './common' }))
     .pipe(rename( function(path) {
-      path.basename = path.dirname.replace('/', '.') + '.' + path.basename;
+      if (path.dirname !== '.') {
+        path.basename = path.dirname.replace('/', '.') + '.' + path.basename;
+      }
     }))
     .pipe(screeps(config));
 });
