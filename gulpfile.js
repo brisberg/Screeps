@@ -16,7 +16,7 @@ config = minimist(process.argv.slice(2), knownOptions);
 
 gulp.task('screeps', function() {
   merge(gulp.src('./' + config.project + '/**/*.js', { base: './' + config.project }),
-        gulp.src('./common/*.js', { base: './common' }))
+        gulp.src('./common/**/*.js'))
     .pipe(rename( function(path) {
       if (path.dirname !== '.') {
         path.basename = path.dirname.replace('/', '.') + '.' + path.basename;
