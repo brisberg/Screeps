@@ -1,6 +1,6 @@
 var Role = require('roles.baseRole');
 
-var Builder = Object.create(Role());
+var Builder = new Role();
 
 /** @param {Creep} creep **/
 Builder.execute = function (creep) {

@@ -7,4 +7,4 @@ Trucker.execute =  function (creep) {
     Tasks.moveTask.execute(creep, 1);
 };
 
-module.exports = Harvester;
+module.exports = Trucker;
