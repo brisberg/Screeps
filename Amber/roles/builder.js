@@ -1,10 +1,10 @@
-var Role = require('role.baseRole');
+var Role = require('roles.baseRole');
 
 var Builder = new Role();
 
 /** @param {Creep} creep **/
-// Builder.execute = function (creep) {
+Builder.execute = function (creep) {
+    console.log("Builder execute called");
+};
 
-// };
-
-module.exports = roleBuilder;
+module.exports = Builder;
