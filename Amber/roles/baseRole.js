@@ -3,7 +3,7 @@ function Role(name) {
 }
 
 Role.prototype.execute = function() {
-  console.log("BaseRole execute, should never happen");
+  console.log('BaseRole execute, should never happen');
 };
 
 module.exports = Role;

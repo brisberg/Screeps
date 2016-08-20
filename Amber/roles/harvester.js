@@ -2,7 +2,7 @@ var Role = require('roles.baseRole');
 
 var Harvester = new Role();
 
-harvester.prototype.execute =  function (creep) {
+Harvester.execute =  function (creep) {
     if (creep.carry.energy < creep.carryCapacity) {
         var sources = creep.room.find(FIND_SOURCES);
         if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
