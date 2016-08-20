@@ -12,6 +12,6 @@
     "merge-stream": "^1.0.0",
     "minimist": "^1.2.0"
   },
-  "author": "Brandon Risberg",
+  "author": "Paul Connor, Brandon Risberg, Jinson Yu",
   "license": "MIT",
 }
