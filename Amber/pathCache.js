@@ -11,18 +11,27 @@ function _getPosKey(pos) {
 }
 
 module.exports = {
+  CACHE_MAX_SIZE: 1500,
+  CACHE_STALE_LIMIT: 2000,
+
   getPath: function(from, to) {
-    console.log('from ' + from + ', to ' + to);
-    var path = Memory.pathCache[_getPathKey(from, to)];
-    if (path) { // found path
-      return path;
+    var pathKey = _getPathKey(from, to);
+    var pathObj = Memory.pathCache[pathKey];
+
+    if (pathObj && Game.time - pathObj.lastUsed < this.CACHE_STALE_LIMIT) { // found path
+      console.log('Game.time: ' + Game.time + ' - lastUsed: ' + pathObj.lastUsed + ' < CACHE_STALE_LIMIT: ' + this.CACHE_STALE_LIMIT);
+      pathObj.lastUsed = Game.time;
+      Memory.pathCache[pathKey] = pathObj;
+      return pathObj.path;
     }
-    else { // no path found
+    else { // no path found ot path expired
       var curRoom = Game.spawns.Spawn1.room;
-      path = curRoom.findPath(from, to);
-      debugger;
-      console.log(path);
-      Memory.pathCache[_getPathKey(from, to)] = Room.serializePath(path);
+      var path = curRoom.findPath(from, to);
+
+      Memory.pathCache[pathKey] = {
+        path: Room.serializePath(path),
+        lastUsed: Game.time
+      };
       return path;
     }
   }

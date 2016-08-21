@@ -1,16 +1,22 @@
 var utils = require('utils');
 var Task = require('tasks.baseTask');
+var codes = require('tasks.enums');
 var pathCache = require('pathCache');
 
 var MoveTask = new Task();
 
-MoveTask.execute = function(creep, task_id) {
-  var mem = creep.memory.tasks[task_id];
-  console.log('movement for creep ' + creep.name + ', test=' + mem.message);
-  console.log('mem.start: ' + JSON.parse(mem.start).x + ', ' + JSON.parse(mem.start).y);
-  var roomPos = utils.deserializeRoomPosition(mem.start);
-  console.log('roomPos: ' + roomPos);
-  creep.moveByPath(pathCache.getPath(utils.deserializeRoomPosition(mem.start), utils.deserializeRoomPosition(mem.goal)));
+MoveTask.execute = function(creep, mem) {
+  if (creep.fatigue > 0) {
+    return codes.TASK_EXEC;
+  }
+
+  if (creep.pos.getRangeTo(utils.deserializeRoomPos(mem.goal)) <= mem.distance) {
+    return codes.TASK_COMPLETE;
+  }
+
+  var path = pathCache.getPath(utils.deserializeRoomPos(mem.start), utils.deserializeRoomPos(mem.goal));
+  creep.moveByPath(path);
+  return codes.TASK_EXEC;
 };
 
 module.exports = MoveTask;
