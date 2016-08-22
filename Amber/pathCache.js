@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 if (!Memory.pathCache) {
   Memory.pathCache = {};
 }
@@ -25,6 +27,10 @@ module.exports = {
       return pathObj.path;
     }
     else { // no path found ot path expired
+      if (_.size(Memory.pathCache) > this.CACHE_MAX_SIZE) {
+        this.cleanCache();
+      }
+
       var curRoom = Game.spawns.Spawn1.room;
       var path = curRoom.findPath(from, to);
 
@@ -34,5 +40,13 @@ module.exports = {
       };
       return path;
     }
+  },
+
+  /* Clear all cached paths older than CACHE_STALE_LIMIT */
+  cleanCache: function() {
+    var stale_limit = this.CACHE_STALE_LIMIT;
+    Memory.pathCache = _.pick(Memory.pathCache, function(pathObj, pathKey) {
+      return Game.time - pathObj.lastUsed < stale_limit;
+    });
   }
 };
