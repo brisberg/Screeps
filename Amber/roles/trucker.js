@@ -3,12 +3,16 @@ var Tasks = require('tasks.__init__');
 
 var Trucker = new Role();
 
-Trucker.execute =  function (creep) {
+Trucker.initialize = function (creep) {
+    console.log('Trucker init');
+};
+
+Trucker.execute = function (creep) {
     if (creep.spawning) {
         return;
     }
 
-    var taskResult = Tasks.moveTask.execute(creep, creep.memory.tasks[1]);
+    var taskResult = Tasks.moveTask.execute(creep, creep.memory.task_data);
 
     if (taskResult == Tasks.enums.TASK_COMPLETE) {
         console.log('Carrier has arrived!');

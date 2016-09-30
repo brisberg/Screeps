@@ -1,27 +1,31 @@
 var Role = require('roles.baseRole');
+var Tasks = require('tasks.__init__');
+
+var state = {
+    UNASSIGNED: -1,
+    MOVE_TO_SOURCE: 1,
+    HARVEST: 2,
+    MOVE_TO_SPAWN: 3,
+    TRANSFER: 4
+};
 
 var Harvester = new Role();
 
+Harvester.initialize = function (creep, spawn, source) {
+    creep.role_data = {
+        state: state.MOVE_TO_SOURCE,
+        spawn: spawn,
+        source: source
+    };
+
+};
+
 Harvester.execute =  function (creep) {
-    if (creep.carry.energy < creep.carryCapacity) {
-        var sources = creep.room.find(FIND_SOURCES);
-        if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(sources[0]);
-        }
-    }
-    else {
-        var targets = creep.room.find(FIND_STRUCTURES, {
-            filter: function (structure) {
-                return (structure.structureType == STRUCTURE_EXTENSION ||
-                    structure.structureType == STRUCTURE_SPAWN ||
-                    structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
-            }
-        });
-        if (targets.length > 0) {
-            if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0]);
-            }
-        }
+    result = Tasks.[creep.memory.role_data.task]
+    switch (creep.role_data.state) {
+        case state.MOVE_TO_SOURCE:
+            if (creep.harvest.energy < creep.carry_capacity)
+            break;
     }
 };
 
