@@ -1,4 +1,5 @@
 var roles = require('roles.__init__');
+var c = require('creep');
 var pathCache = require('pathCache');
 
 // TODO move these to globals
@@ -11,6 +12,7 @@ module.exports.loop = function () {
 
   for (var name in Game.creeps) {
     var creep = Game.creeps[name];
-    roles[creep.memory.role].execute(creep);
+    // roles[creep.memory.role].execute(creep);
+    creep.execute();
   }
 };

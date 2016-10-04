@@ -5,6 +5,15 @@ var pathCache = require('pathCache');
 
 var MoveTask = new Task();
 
+MoveTask.initialize = function(start, goal, distance) {
+    return {
+        task: 'moveTask',
+        start: JSON.stringify(start),
+        goal: JSON.stringify(goal),
+        distance: distance
+    };
+};
+
 MoveTask.execute = function(creep, mem) {
   if (creep.fatigue > 0) {
     return codes.TASK_EXEC;
