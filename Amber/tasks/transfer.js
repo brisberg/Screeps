@@ -1,9 +1,9 @@
-var Task = require('tasks.baseTask');
+var Task = require('tasks.basetask');
 var codes = require('tasks.enums');
 
 var TransferTask = new Task();
 
-MoveTask.execute = function(creep, mem) {
+TransferTask.execute = function(creep, mem) {
     var target = Game.findById(mem.target);
 
     if (creep.carryCapacity === 0 || target.energy === target.energyCapacity) {
@@ -18,4 +18,4 @@ MoveTask.execute = function(creep, mem) {
     return codes.TASK_EXEC;
 };
 
-module.exports = MoveTask;
+module.exports = TransferTask;

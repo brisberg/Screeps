@@ -1,4 +1,4 @@
-var Task = require('tasks.baseTask');
+var Task = require('tasks.basetask');
 var codes = require('tasks.enums');
 
 var HarvestTask = new Task();
@@ -24,4 +24,4 @@ HarvestTask.execute = function(creep, mem) {
     return codes.TASK_EXEC;
 };
 
-module.exports = MoveTask;
+module.exports = HarvestTask;

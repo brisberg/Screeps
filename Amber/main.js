@@ -1,6 +1,11 @@
 var roles = require('roles.__init__');
-var c = require('creep');
+var Tasks = require('tasks.__init__');
+// var c = require('creep');
 var pathCache = require('pathCache');
+
+Creep.prototype.execute = function() {
+    Tasks[this.memory.task.name].execute(this, this.memory.task);
+};
 
 // TODO move these to globals
 var CACHE_CLEANUP_INTERVAL = 2000;

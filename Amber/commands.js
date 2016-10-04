@@ -18,10 +18,10 @@ module.exports = {
     });
   },
   testSpawnHarvester: function(name) {
-    Game.spawns.Spawn1.createCreep( [WORK, CARRY, MOVE], name, {});
-    Game.spawns.Spawn1.spawning.Memory.task =
-    Tasks.moveTask.initialize(Game.spawns.Spawn1.room.getPositionAt(21, 27),
-                              Game.spawns.Spawn1.room.getPositionAt(27, 17), 1);
+    Game.spawns.Spawn1.createCreep( [WORK, CARRY, MOVE], name, {
+        task: Tasks.moveTask.initialize(Game.spawns.Spawn1.room.getPositionAt(21, 27),
+                                  Game.spawns.Spawn1.room.getPositionAt(27, 17), 1)
+    });
   },
   moveCreepTo: function(name, x, y) {
     var creep = Game.creeps[name];

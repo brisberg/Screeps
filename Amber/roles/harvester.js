@@ -21,7 +21,7 @@ Harvester.initialize = function (creep, spawn, source) {
 };
 
 Harvester.execute =  function (creep) {
-    result = Tasks.[creep.memory.role_data.task]
+    result = Tasks[creep.memory.role_data.task];
     switch (creep.role_data.state) {
         case state.MOVE_TO_SOURCE:
             if (creep.harvest.energy < creep.carry_capacity)

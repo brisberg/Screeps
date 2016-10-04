@@ -1,5 +1,5 @@
 var utils = require('utils');
-var Task = require('tasks.baseTask');
+var Task = require('tasks.basetask');
 var codes = require('tasks.enums');
 var pathCache = require('pathCache');
 
@@ -7,7 +7,7 @@ var MoveTask = new Task();
 
 MoveTask.initialize = function(start, goal, distance) {
     return {
-        task: 'moveTask',
+        name: 'moveTask',
         start: JSON.stringify(start),
         goal: JSON.stringify(goal),
         distance: distance
