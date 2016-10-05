@@ -19,8 +19,8 @@ module.exports = {
   },
   testSpawnHarvester: function(name) {
     Game.spawns.Spawn1.createCreep( [WORK, CARRY, MOVE], name, {
-        task: Tasks.moveTask.initialize(Game.spawns.Spawn1.room.getPositionAt(21, 27),
-                                  Game.spawns.Spawn1.room.getPositionAt(27, 17), 1)
+        task: Tasks.moveAndHarvestTask.initialize(Game.spawns.Spawn1.pos,
+                                  Game.spawns.Spawn1.pos.findClosestByRange(FIND_SOURCES), 1)
     });
   },
   moveCreepTo: function(name, x, y) {

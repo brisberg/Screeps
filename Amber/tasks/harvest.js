@@ -3,7 +3,7 @@ var codes = require('tasks.enums');
 
 var HarvestTask = new Task();
 
-HarvestTask.initialize = function(creep, mem, source) {
+HarvestTask.initialize = function(source) {
     return {
         source: source.id
     };
@@ -14,9 +14,7 @@ HarvestTask.execute = function(creep, mem) {
         return codes.TASK_COMPLETE;
     }
 
-
-    var source = Game.getObjectById(mem.source);
-    var result = creep.harvest(source);
+    var result = creep.harvest(Game.getObjectById(mem.source));
     if (result == ERR_NOT_IN_RANGE) {
         return codes.TASK_FAIL;
     }
