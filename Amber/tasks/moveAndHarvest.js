@@ -6,7 +6,6 @@ var codes = require('tasks.enums');
 var MoveAndHarvestTask = new Task();
 
 var state = {
-    UNASSIGNED: -1,
     MOVE: 1,
     HARVEST: 2,
 };
@@ -14,8 +13,8 @@ var state = {
 MoveAndHarvestTask.initialize = function(start, source) {
     return {
         name: 'moveAndHarvestTask',
-        state: state.MOVE,
-        source: source.id,
+        state: -1,
+        source: { id: source.id, pos: source.pos },
         subtask: moveTask.initialize(start, source.pos, 1)
     };
 };
@@ -26,12 +25,12 @@ MoveAndHarvestTask.execute = function(creep, mem) {
             var result = moveTask.execute(creep, mem.subtask);
             if (result == codes.TASK_COMPLETE) {
                 mem.state = state.HARVEST;
-                mem.subtask = harvestTask.initialize(Game.getObjectById(mem.source));
+                mem.subtask = harvestTask.initialize(Game.getObjectById(mem.source.id));
                 return codes.TASK_EXEC;
             }
             else if (result == codes.TASK_FAIL) {
                 console.log('MoveAndHarvestTask: Move step TASK_FAIL, recalc');
-                mem.subtask = moveTask.initialize(creep.pos, source.pos, 1);
+                mem.subtask = moveTask.initialize(creep.pos, mem.source.pos, 1);
                 return codes.TASK_EXEC;
             }
             return codes.TASK_EXEC;
@@ -42,13 +41,13 @@ MoveAndHarvestTask.execute = function(creep, mem) {
             }
             else if (result == codes.TASK_FAIL) {
                 mem.state = state.MOVE;
-                mem.subtask = moveTask.initialize(creep.pos, source.pos, 1);
+                mem.subtask = moveTask.initialize(creep.pos, mem.source.pos, 1);
                 return codes.TASK_EXEC;
             }
             return codes.TASK_EXEC;
         default:
             mem.state = state.MOVE;
-            mem.subtask = moveTask.initialize(creep.pos, source.pos, 1);
+            mem.subtask = moveTask.initialize(creep.pos, mem.source.pos, 1);
             return codes.TASK_EXEC;
     }
 };

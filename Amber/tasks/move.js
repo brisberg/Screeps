@@ -24,7 +24,10 @@ MoveTask.execute = function(creep, mem) {
   }
 
   var path = pathCache.getPath(utils.deserializeRoomPos(mem.start), utils.deserializeRoomPos(mem.goal));
-  creep.moveByPath(path);
+  var result = creep.moveByPath(path);
+  if (result != OK) {
+    return codes.TASK_FAIL;
+  }
   return codes.TASK_EXEC;
 };
 
