@@ -3,29 +3,44 @@ var Tasks = require('tasks.__init__');
 
 var state = {
     UNASSIGNED: -1,
-    MOVE_TO_SOURCE: 1,
-    HARVEST: 2,
-    MOVE_TO_SPAWN: 3,
-    TRANSFER: 4
+    HARVEST: 1,
+    TRANSFER: 2
 };
 
 var Harvester = new Role();
 
-Harvester.initialize = function (creep, spawn, source) {
-    creep.role_data = {
-        state: state.MOVE_TO_SOURCE,
-        spawn: spawn,
-        source: source
+Harvester.initialize = function (target, source) {
+    return {
+        name: 'harvester',
+        state: state.UNASSIGNED,
+        source: { id: source.id, pos: source.pos },
+        target: { id: target.id, pos: target.pos },
+        subtask: {}
     };
-
 };
 
-Harvester.execute =  function (creep) {
-    result = Tasks[creep.memory.role_data.task];
-    switch (creep.role_data.state) {
-        case state.MOVE_TO_SOURCE:
-            if (creep.harvest.energy < creep.carry_capacity)
-            break;
+Harvester.execute =  function (creep, mem) {
+    switch (mem.state) {
+        case state.HARVEST:
+            var result = Tasks.moveAndHarvestTask.execute(creep, mem.subtask);
+            if (result == Tasks.enums.TASK_COMPLETE) {
+                mem.state = state.TRANSFER;
+                mem.subtask = Tasks.moveAndTransferTask.initialize(creep.pos, Game.getObjectById(mem.target.id));
+                return Tasks.enums.TASK_EXEC;
+            }
+            return Tasks.enums.TASK_EXEC;
+        case state.TRANSFER:
+            result = Tasks.moveAndTransferTask.execute(creep, mem.subtask);
+            if (result == Tasks.enums.TASK_COMPLETE) {
+                mem.state = state.HARVEST;
+                mem.subtask = Tasks.moveAndHarvestTask.initialize(creep.pos, Game.getObjectById(mem.source.id));
+                return Tasks.enums.TASK_EXEC;
+            }
+            return Tasks.enums.TASK_EXEC;
+        default:
+            mem.state = state.HARVEST;
+            mem.subtask = Tasks.moveAndHarvestTask.initialize(creep.pos, Game.getObjectById(mem.source.id), 1);
+            return Tasks.enums.TASK_EXEC;
     }
 };
 

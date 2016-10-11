@@ -1,4 +1,5 @@
 var Tasks = require('tasks.__init__');
+var Roles = require('roles.__init__');
 
 module.exports = {
   spawnCreep: function(name, role) {
@@ -19,8 +20,8 @@ module.exports = {
   },
   testSpawnHarvester: function(name) {
     Game.spawns.Spawn1.createCreep( [WORK, CARRY, MOVE], name, {
-        task: Tasks.moveAndHarvestTask.initialize(Game.spawns.Spawn1.pos,
-                                  Game.spawns.Spawn1.pos.findClosestByRange(FIND_SOURCES), 1)
+        task: Roles.harvester.initialize(Game.spawns.Spawn1,
+                                  Game.spawns.Spawn1.pos.findClosestByRange(FIND_SOURCES))
     });
   },
   moveCreepTo: function(name, x, y) {

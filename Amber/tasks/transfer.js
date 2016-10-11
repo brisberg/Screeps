@@ -3,14 +3,20 @@ var codes = require('tasks.enums');
 
 var TransferTask = new Task();
 
-TransferTask.execute = function(creep, mem) {
-    var target = Game.findById(mem.target);
+TransferTask.initialize = function(target) {
+    return {
+        target: target.id
+    };
+};
 
-    if (creep.carryCapacity === 0 || target.energy === target.energyCapacity) {
+TransferTask.execute = function(creep, mem) {
+    var target = Game.getObjectById(mem.target);
+
+    if (creep.carry[RESOURCE_ENERGY] === 0 || target.energy === target.energyCapacity) {
         return codes.TASK_COMPLETE;
     }
 
-    var result = creep.transfer(target);
+    var result = creep.transfer(target, RESOURCE_ENERGY);
     if (result == ERR_NOT_IN_RANGE) {
         return codes.TASK_FAIL;
     }
