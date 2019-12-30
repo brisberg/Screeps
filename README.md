@@ -1,5 +1,7 @@
-# Screeps
+# Screeps (Deprecated)
 AI Code for the Screeps MMO
+
+*Deprecated* 12/2019 in favor of a new Screeps AI initiative - [Amber](https://github.com/brisberg/amber).
 
 ### Deploy to Screeps
 
